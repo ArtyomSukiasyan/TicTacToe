@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { loadState, saveState } from "../../Helpers/localStorage";
 import Board from "../Board/Board";
 import ShowMessages from "../ShowMessages/ShowMessages";
-import styles from "./TicTacToe.module.css"
+import { loadState, saveState } from "../../helpers/localStorage";
+import styles from "./TicTacToe.module.css";
 
-const X = "X"
-const O = "O"
+const X = "X";
+const O = "O";
 
-export default function TicTacToe() {
+export default function TacToe() {
   const [squares, setSquares] = useState(
     loadState("game") ? loadState("game") : Array(9).fill(null)
   );
@@ -30,17 +30,17 @@ export default function TicTacToe() {
   ];
 
   const isWinner = () => {
-    const player = count % 2 === 0 ? X : O;
+    const s = count % 2 === 0 ? X : O;
 
     for (let i = 0; i < winnerLine.length; i++) {
       const line = winnerLine[i];
       if (
-        squares[line[0]] === player &&
-        squares[line[1]] === player &&
-        squares[line[2]] === player
+        squares[line[0]] === s &&
+        squares[line[1]] === s &&
+        squares[line[2]] === s
       ) {
-        setResult(`${player} win`);
-        saveState("winner ", `${player} win`);
+        setResult(`${s} win`);
+        saveState("winner ", `${s} win`);
         return;
       }
     }
@@ -55,30 +55,18 @@ export default function TicTacToe() {
     }
   };
 
-  const startNewGame = () => {
-    setSquares(Array(9).fill(null));
-    setCount(0);
-    setResult("");
-    try {
-      saveState("game", Array(9).fill(null));
-      saveState("winner", "");
-    } catch {
-      setLocalStorageMessage("Impossible to save in your local storage");
-    }
-  };
-
   const handleClick = (e) => {
     if (result === "") {
       const data = e.target.getAttribute("data");
       if (squares[data] === null) {
-        squares[data] = count % 2 === 0 ? X : O;
+        squares[data] = count % 2 === 0 ? X : O
         setSquares(squares);
         setCount(count + 1);
       } else {
         setErrorMessage("This square is not empty!");
         setTimeout(() => {
           setErrorMessage("");
-        }, 1500);
+        }, 1000);
       }
       try {
         saveState("game", squares);
@@ -89,9 +77,21 @@ export default function TicTacToe() {
     isWinner();
   };
 
+  const startNewGame = () => {
+    setSquares(Array(9).fill(null));
+    setCount(0);
+    setResult("");
+    try {
+      saveState("game", squares);
+      saveState("winner", "");
+    } catch {
+      setLocalStorageMessage("Impossible to save in your local storage");
+    }
+  };
+
   return (
-    <div className={styles.container} handleClick={handleClick}>
-      <Board squares={squares} />
+    <div className={styles.container}>
+      <Board squares={squares} handleClick={handleClick} />
       <ShowMessages
         startNewGame={startNewGame}
         result={result}

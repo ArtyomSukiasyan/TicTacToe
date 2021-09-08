@@ -1,4 +1,4 @@
-import styles from "./Messages.module.css";
+import styles from "./ShowMessages.module.css";
 
 export default function ShowMessages({
   startNewGame,
