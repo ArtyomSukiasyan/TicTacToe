@@ -77,7 +77,7 @@ export default function TicTacToe() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} handleClick={handleClick}>
       <Board squares={squares} />
 
     </div>
