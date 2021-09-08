@@ -55,6 +55,18 @@ export default function TicTacToe() {
     }
   };
 
+  const startNewGame = () => {
+    setSquares(Array(9).fill(null));
+    setCount(0);
+    setResult("");
+    try {
+      saveState("game", Array(9).fill(null));
+      saveState("winner", "");
+    } catch {
+      setLocalStorageMessage("Impossible to save in your local storage");
+    }
+  };
+
   const handleClick = (e) => {
     if (result === "") {
       const data = e.target.getAttribute("data");
