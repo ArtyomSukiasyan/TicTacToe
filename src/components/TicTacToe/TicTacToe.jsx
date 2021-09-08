@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loadState, saveState } from "../../Helpers/localStorage";
 import Board from "../Board/Board";
+import ShowMessages from "../ShowMessages/ShowMessages";
 import styles from "./TicTacToe.module.css"
 
 const X = "X"
@@ -79,7 +80,12 @@ export default function TicTacToe() {
   return (
     <div className={styles.container} handleClick={handleClick}>
       <Board squares={squares} />
-
+      <ShowMessages
+        startNewGame={startNewGame}
+        result={result}
+        errorMessage={errorMessage}
+        localStorageMessage={localStorageMessage}
+      />
     </div>
   );
 }
