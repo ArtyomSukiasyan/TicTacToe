@@ -54,6 +54,28 @@ export default function TicTacToe() {
     }
   };
 
+  const handleClick = (e) => {
+    if (result === "") {
+      const data = e.target.getAttribute("data");
+      if (squares[data] === null) {
+        squares[data] = count % 2 === 0 ? X : O;
+        setSquares(squares);
+        setCount(count + 1);
+      } else {
+        setErrorMessage("This square is not empty!");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 1500);
+      }
+      try {
+        saveState("game", squares);
+      } catch {
+        setLocalStorageMessage("Impossible to save in your local storage");
+      }
+    }
+    isWinner();
+  };
+
   return (
     <div className={styles.container}>
       <Board squares={squares} />
