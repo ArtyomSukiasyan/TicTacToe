@@ -1,5 +1,3 @@
-https://tic-tac-toe-chi.vercel.app/
-
 # Description
 
 The game is taken from the [final project](https://game-hub-black.vercel.app/) of my team as part of an intensive full time Front-end Bootcamp course.
