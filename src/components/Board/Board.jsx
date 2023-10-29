@@ -5,7 +5,7 @@ export default function Board({ squares, handleClick }) {
     <div className={styles.game}>
       {squares.map((el, id) => {
         return (
-          <div className={styles.square} onClick={handleClick} data={id}>
+          <div key={id} className={styles.square} onClick={handleClick} data={id}>
             {el}
           </div>
         );
